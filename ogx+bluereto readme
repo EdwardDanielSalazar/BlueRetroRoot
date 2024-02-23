@@ -1,0 +1,49 @@
+
+ogx360 + AzulRetro
+Herramientas de software
+He agregado soporte para bifurcaciones de BlueRetro y ogx360 para controlar hasta 4 módulos ogx360 desde un BlueRetro.
+
+https://github.com/netham45/blueretro : agregué una configuración/mapeo de controlador cableado a BlueRetro para generar comandos a través de I2C en el formato que desea el OGX360.
+
+https://github.com/netham45/ogx360 : para OGX360 incrementé la identificación del dispositivo en uno, por lo que cree que son 4 esclavos en lugar de 3 esclavos y 1 maestro. El esp32 actúa como maestro en lugar de que uno de los módulos ogx360 se comunique con un controlador de host USB.
+
+Hardware
+El BlueRetro necesita un esp32 para funcionar. Un ESP32-DEVKITC-32E funcionará mejor.
+
+El código ogx360 necesita de 1 a 4 módulos Atmega 32u4, dependiendo de cuántos reproductores desee admitir. Estos son los controladores de Arduino Leonardos o también se pueden encontrar en placas 'Pro Micro' por un precio más económico.
+
+Necesitará alambre y otras cosas para soldar.
+
+Necesitará cables para conectar las placas ogx360 a una Xbox. Hay algunas opciones para las que puede encontrar piezas en eBay, como Xbox a USB A a USB Micro o Xbox directamente a USB Micro (busque cable ogx360).
+
+Edificio AzulRetro
+Puede seguir las instrucciones de compilación en https://github.com/darthcloud/BlueRetroRoot . Una vez configurado, vaya a un directorio limpio y clone mi repositorio con
+
+git clone https://github.com/netham45/BlueRetro
+
+luego copie la configuración de ogx360 desde configs/hw1/ogx360a sdkconfigen la base del repositorio. Luego, desde la base del repositorio, compílelo y actualícelo con idf.py -p /hostdev/ttyUSB0 flash. Mantenga presionado el botón 0 en el esp32 cuando llegue a la etapa de parpadeo.
+
+Construyendo/flasheando ogx360
+Siga las instrucciones de compilación/programación de plataforma IO en https://github.com/Ryzee119/ogx360/blob/master/Firmware/README.md
+
+excepto sustituir mi repositorio, https://github.com/netham45/ogx360cuando hagas el clon recursivo.
+
+Alambrado
+Para el Reproductor 1: conecte los pines 6,7 del Reproductor 1 32u4 a Tierra
+
+Para el Reproductor 2: conecte el pin 7 del Reproductor 2 32u4 a Tierra
+
+Para el Reproductor 3: conecte el pin 6 del Reproductor 3 32u4 a Tierra
+
+Para el jugador 4: no conecte ningún pin adicional a tierra
+
+Conecte los 5v y la tierra de todas las placas, conecte los pines 2 y 3 en todos los 32u4 juntos, luego conecte el pin 2 de ese conjunto al pin 22 en el esp32 y el pin 3 al pin 21 en el esp32.
+
+ESP32	Función	32u4
+5v	5v	5v
+tierra	Suelo	tierra
+22	scl	2
+21	sda	3
+También puede conectar todas las líneas de reinicio para reiniciar todo el Atmega32u4 cuando se presiona el botón del esp32. Esto puede resultar útil durante el flasheo.
+
+Los jugadores 2,3,4 son opcionales.
