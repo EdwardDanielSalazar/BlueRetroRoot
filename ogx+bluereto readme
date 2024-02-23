@@ -47,3 +47,6 @@ tierra	Suelo	tierra
 También puede conectar todas las líneas de reinicio para reiniciar todo el Atmega32u4 cuando se presiona el botón del esp32. Esto puede resultar útil durante el flasheo.
 
 Los jugadores 2,3,4 son opcionales.
+
+
+https://davidxgames.github.io/ESP32-FLASH-ONLINE/blueretro.html
